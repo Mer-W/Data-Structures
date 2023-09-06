@@ -17,7 +17,7 @@ public class Day01CarsSorted {
 
     public static void main(String[] args) {
         ArrayList<Car> parking = new ArrayList<>();
-
+//  hard code car objects
 //        parking.add(new Car("Toyota Prius", 1.8, 2015));
 //        parking.add(new Car("Toyota Corolla", 1.8, 2021));
 //        parking.add(new Car("Kia Rio", 1.6, 2018));
@@ -25,7 +25,6 @@ public class Day01CarsSorted {
 //        parking.add(new Car("Honda Accord", 2.4, 2013));
 //        parking.add(new Car("Honda Civic", 1.5, 2017));
 //        parking.add(new Car("Honda Accord", 2.5, 2017));
-
         readFile(parking);
 
         System.out.println("Print each car\n");
@@ -33,6 +32,8 @@ public class Day01CarsSorted {
             System.out.print(car.toString());
         }
 
+        // sort by make and model
+        
         System.out.println("\nSort cars by make and model using comparable interface:\n");
 
         Collections.sort(parking);
@@ -40,6 +41,8 @@ public class Day01CarsSorted {
             System.out.print(car.toString());
         }
 
+        // sort by engine size
+        
         System.out.println("\nSort cars using enginge comparator:\n");
 
         Comparator<Car> compareEnginge = new Comparator<Car>() {
@@ -59,13 +62,21 @@ public class Day01CarsSorted {
             System.out.print(car.toString());
         }
 
+        
+        // sort by year
+        
+        
         System.out.println("\nSort cars using prod year comparator:\n");
 
         Collections.sort(parking, (a, b) -> a.getProdYear() < b.getProdYear() ? -1 : a.getProdYear() == b.getProdYear() ? 0 : 1);
         for (Car car : parking) {
             System.out.print(car.toString());
         }
+        
 
+        // sort by year then make model
+        
+        
         System.out.println("\nSort cars by prod year then make model:\n");
 
         Collections.sort(parking, (a, b) -> a.getProdYear() < b.getProdYear() ? -1 : a.getProdYear() == b.getProdYear() ? a.compareTo(b) : 1);
@@ -76,24 +87,46 @@ public class Day01CarsSorted {
     }
 
     static void readFile(ArrayList<Car> parking) {
-        
 
         try (Scanner scanner = new Scanner(new File("cars.txt"))) {
 
             while (scanner.hasNext()) {
-                String[] str = scanner.nextLine().split(";");
-                String makeModel = str[0];
-                double engineSizeL = Double.parseDouble(str[1]);
-                int prodYear = Integer.parseInt(str[2]);
+                String[] str = scanner.nextLine().split(";", 3);
 
-                parking.add(new Car(makeModel, engineSizeL, prodYear));
+                String makeModel = str[0];
+
+                boolean isDouble;
+                try {
+                    Double.parseDouble(str[1]);
+                    isDouble = true;
+                } catch (NumberFormatException e) {
+                    isDouble = false;
+                }
+
+                boolean isInt;
+                try {
+                    Integer.parseInt(str[2]);
+                    isInt = true;
+                } catch (NumberFormatException e) {
+                    isInt = false;
+                }
+
+                if (makeModel != null && isDouble && isInt) {
+                    
+                    double engineSizeL = Double.parseDouble(str[1]);
+
+                    int prodYear = Integer.parseInt(str[2]);
+
+                    parking.add(new Car(makeModel, engineSizeL, prodYear));
+                }
 
             }
 
+            scanner.close();
+            
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
-        
-    
+
     }
 }
