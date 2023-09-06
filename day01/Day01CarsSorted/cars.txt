@@ -1,0 +1,9 @@
+Toyota Prius;1.8;2015
+Toyota Corolla;1.8;2021
+Kia Rio;1.6;2018
+Honda Accord;2.5;2015
+Honda Accord;2.4;2013
+Honda Civic;1.5;2017
+Honda Accord;2.5;2017
+Audi A8;2.2;2012
+Toyota Corolla;1.8;2020
