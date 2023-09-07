@@ -91,7 +91,13 @@ public class Day01CarsSorted {
         try (Scanner scanner = new Scanner(new File("cars.txt"))) {
 
             while (scanner.hasNext()) {
-                String[] str = scanner.nextLine().split(";", 3);
+                
+                String[] str = scanner.nextLine().split(";");
+                
+                     if (str.length != 3) {
+                    System.out.println("invalid input; skipping to next line");
+                    continue;
+                }
 
                 String makeModel = str[0];
 

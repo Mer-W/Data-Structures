@@ -26,6 +26,11 @@ public class Day01TeamMembers {
             
             while (scanner.hasNext()) {
                 String[] str = scanner.nextLine().split(":");
+                
+                if (str.length != 2) {
+                    System.out.println("invalid input; skipping to next line");
+                    continue;
+                }
                 String team = str[0];
                // System.out.println(team);
                 
@@ -60,6 +65,8 @@ public class Day01TeamMembers {
                     }
                 }
             }
+            
+            scanner.close();
             
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
