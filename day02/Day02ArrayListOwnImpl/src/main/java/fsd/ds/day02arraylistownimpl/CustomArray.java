@@ -52,15 +52,23 @@ public class CustomArray {
             throw new IndexOutOfBoundsException("index out of bounds!");
         }
 
-        size--;
+        if (size == 0) {
 
-        for (int i = 0; i < data.length - 1; i++) {
+            data[0] = 0;
 
-            if (i >= index) {
+        } else {
 
-                data[i] = data[i + 1];
+            for (int i = 0; i < data.length - 1; i++) {
+
+                if (i >= index) {
+
+                    data[i] = data[i + 1];
+                }
             }
         }
+
+        size--;
+
     }
 
     public boolean deleteByValue(int value) {  // delete first value matching, true if value found, false otherwise
@@ -85,45 +93,49 @@ public class CustomArray {
     public void insertValueAtIndex(int value, int index) {
 
         if (index < 0 || index >= size) {
+
             throw new IndexOutOfBoundsException("index out of bounds!");
         }
 
         int[] newArr;
-        
-        size++;
 
         if (size >= data.length) {
 
             newArr = new int[size * 2];
 
         } else {
-
+            
             newArr = data;
         }
-        
 
         int temp1 = data[index];
         int temp2;
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i <= size; i++) {
 
-            if (i < index) {                // index < 3
+            if (i < index) {            
 
-                newArr[i] = data[i];        // no change
+                newArr[i] = data[i];   
 
-            } else if (i == index) {        // index 3
+            } else if (i == index) { 
 
-                newArr[i] = value;          // data[3] = 7
+                newArr[i] = value;   
 
-            } else {                        // index 4
+            } else if (i < data.length) { 
 
-                temp2 = data[i];            // save data[4] = 5                
-                newArr[i] = temp1;         // data[4] = 4
+                temp2 = data[i];                    
+                newArr[i] = temp1;        
                 temp1 = temp2;
+                
+            } else {
+
+                newArr[i] = temp1;
             }
         }
 
         data = newArr;
+
+        size++;
     }
 
     public void clear() {
@@ -162,8 +174,8 @@ public class CustomArray {
 
         StringBuilder str = new StringBuilder();
 
-       // for (int i = 0; i < data.length; i++) {
-            for (int i = 0; i < size; i++) {
+        // for (int i = 0; i < data.length; i++) {
+        for (int i = 0; i < size; i++) {
 
             if (i > 0) {
 
@@ -192,5 +204,9 @@ public class CustomArray {
         }
 
         return str.toString();
+    }
+
+    public int[] getData() {
+        return data;
     }
 }

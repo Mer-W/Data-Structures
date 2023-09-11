@@ -19,27 +19,22 @@ public class Day02ArrayListOwnImpl {
          System.out.println(arr.size());
         arr.add(3);
          System.out.println(arr.size());
-        arr.add(4);
-         System.out.println(arr.size());
-        arr.add(5);
-                 System.out.println(arr.size());
-        arr.add(3);
-         System.out.println(arr.size());
-        arr.add(4);
-         System.out.println(arr.size());
-         System.out.println(arr.size());
+//        arr.add(4);
+//         System.out.println("size: " + arr.size());
+                  System.out.println("data.length: " + arr.getData().length);
+
                  System.out.println(arr.toString());
 
         
-       int[] slice = arr.getSlice(2, 2);
+       int[] slice = arr.getSlice(2, 1);
         System.out.println(arr.sliceStr(slice));
         
 
-        arr.insertValueAtIndex(30,3);
+        arr.insertValueAtIndex(30,2);
                 System.out.println(arr.toString());
 
 
-                arr.insertValueAtIndex(32,3);
+                arr.insertValueAtIndex(32,0);
                 System.out.println(arr.toString());
 
 

@@ -16,24 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author mer
  */
 public class CustomArrayTest {
-    
+
     public CustomArrayTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
     }
 
     /**
@@ -41,12 +25,40 @@ public class CustomArrayTest {
      */
     @Test
     public void testSize() {
+
+        // test initial add
         System.out.println("size");
         CustomArray instance = new CustomArray();
+        instance.add(4);
         int expResult = 1;
         int result = instance.size();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
+
+        // more adds
+        instance.add(4);
+        instance.add(4);
+        expResult = 3;
+        result = instance.size();
+        assertEquals(expResult, result);
+
+        // delete 1
+        instance.deleteByIndex(0);
+        expResult = 2;
+        result = instance.size();
+        assertEquals(expResult, result);
+
+        // delete to size 1
+        instance.deleteByIndex(0);
+        expResult = 1;
+        result = instance.size();
+        assertEquals(expResult, result);
+
+        // delete to size 0
+        instance.deleteByIndex(0);
+
+        expResult = 0;
+        result = instance.size();
+        assertEquals(expResult, result);
 
     }
 
@@ -54,13 +66,36 @@ public class CustomArrayTest {
      * Test of add method, of class CustomArray.
      */
     @Test
-    public void testAdd() {
+    public void testAddLengthDoubled() {
         System.out.println("add");
-        int value = 0;
+
         CustomArray instance = new CustomArray();
-        instance.add(value);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.add(2);
+        instance.add(23);
+
+        instance.add(2);
+
+        // array length
+        int expResult = 4;
+
+        int result = instance.getData().length;
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testAddLengthNotDoubled() {
+        System.out.println("add");
+
+        CustomArray instance = new CustomArray();
+        instance.add(2);
+        instance.add(23);
+
+        // array length
+        int expResult = 2;
+
+        int result = instance.getData().length;
+        assertEquals(expResult, result);
+
     }
 
     /**
@@ -69,11 +104,22 @@ public class CustomArrayTest {
     @Test
     public void testDeleteByIndex() {
         System.out.println("deleteByIndex");
-        int index = 0;
+
         CustomArray instance = new CustomArray();
-        instance.deleteByIndex(index);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.add(2);
+        instance.add(23);
+
+        instance.add(2);
+        instance.deleteByIndex(0);
+
+        int[] expResult = {23, 2, 0, 0};
+
+        int[] result = instance.getData();
+
+        for (int i = 0; i < result.length; i++) {
+
+            assertEquals(expResult[i], result[i]);
+        }
     }
 
     /**
@@ -82,39 +128,64 @@ public class CustomArrayTest {
     @Test
     public void testDeleteByValue() {
         System.out.println("deleteByValue");
-        int value = 0;
         CustomArray instance = new CustomArray();
-        boolean expResult = false;
-        boolean result = instance.deleteByValue(value);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.add(2);
+        instance.add(23);
+
+        instance.add(2);
+        instance.deleteByValue(2);
+
+        int[] expResult = {23, 2, 0, 0};
+
+        int[] result = instance.getData();
+
+        for (int i = 0; i < result.length; i++) {
+
+            assertEquals(expResult[i], result[i]);
+        }
     }
 
     /**
      * Test of insertValueAtIndex method, of class CustomArray.
      */
     @Test
-    public void testInsertValueAtIndex() {
+    public void testInsertValueNotDoubled() {
         System.out.println("insertValueAtIndex");
-        int value = 0;
-        int index = 0;
         CustomArray instance = new CustomArray();
-        instance.insertValueAtIndex(value, index);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        instance.add(2);
+        instance.add(23);
 
-    /**
-     * Test of clear method, of class CustomArray.
-     */
-    @Test
-    public void testClear() {
-        System.out.println("clear");
+        instance.add(2);
+        instance.insertValueAtIndex(5, 0);
+
+        int[] expResult = {5, 2, 23, 2};
+
+        int[] result = instance.getData();
+
+        for (int i = 0; i < result.length; i++) {
+
+            assertEquals(expResult[i], result[i]);
+        }
+    }
+    
+        @Test
+    public void testInsertValueDoubled() {
+        System.out.println("insertValueAtIndex");
         CustomArray instance = new CustomArray();
-        instance.clear();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.add(2);
+        instance.add(23);
+        instance.add(7);
+        instance.add(2);
+        instance.insertValueAtIndex(5, 0);
+
+        int[] expResult = {5, 2, 23, 7, 2, 0, 0, 0};
+
+        int[] result = instance.getData();
+
+        for (int i = 0; i < result.length; i++) {
+
+            assertEquals(expResult[i], result[i]);
+        }
     }
 
     /**
@@ -125,11 +196,10 @@ public class CustomArrayTest {
         System.out.println("get");
         int index = 0;
         CustomArray instance = new CustomArray();
-        int expResult = 0;
+        instance.add(2);
+        int expResult = 2;
         int result = instance.get(index);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -138,14 +208,21 @@ public class CustomArrayTest {
     @Test
     public void testGetSlice() {
         System.out.println("getSlice");
-        int startIdx = 0;
-        int length = 0;
         CustomArray instance = new CustomArray();
-        int[] expResult = null;
-        int[] result = instance.getSlice(startIdx, length);
-        assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.add(2);
+        instance.add(5);
+        instance.add(10);
+        instance.add(28);
+        instance.add(2);
+
+        int[] expResult = {10, 28, 2};
+        
+        int[] result = instance.getSlice(2, 3);
+        
+        for (int i = 0; i < result.length; i++) {
+
+            assertEquals(expResult[i], result[i]);
+        }
     }
 
     /**
@@ -155,11 +232,16 @@ public class CustomArrayTest {
     public void testToString() {
         System.out.println("toString");
         CustomArray instance = new CustomArray();
-        String expResult = "";
+        instance.add(2);
+        instance.add(5);
+        instance.add(10);
+        instance.add(28);
+        instance.add(2);
+
+        String expResult = "2, 5, 10, 28, 2";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -168,13 +250,18 @@ public class CustomArrayTest {
     @Test
     public void testSliceStr() {
         System.out.println("sliceStr");
-        int[] slice = null;
+  
         CustomArray instance = new CustomArray();
-        String expResult = "";
+        instance.add(2);
+        instance.add(5);
+        instance.add(10);
+        instance.add(28);
+        instance.add(2);
+        int[] slice = instance.getSlice(2, 3);
+
+        String expResult = "10, 28, 2";
         String result = instance.sliceStr(slice);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-    
+
 }
