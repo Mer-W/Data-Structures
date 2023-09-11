@@ -18,25 +18,34 @@ public class Day01ArrayCross {
         };
 
         int[][] data2Djagged = {
-            {1, 3, 6, 8, 9, 1},
+            {1, 3, 6, -78, 9, 1},
             {7, 1, 2, 3},
             {8, 3, 2},
             {1, 7, 1, 9}
         };
 
-        sumOfCross(data2D, 2, 6);
-        
-        print2D(data2Djagged);
+        // sumOfCross(data2D, 2, 6);
+//        for (int i = 0; i < data2Djagged.length; i++) {
+//            for (int j = 0; j < data2Djagged[i].length; j++) {
+//
+//                System.out.println("Sum at row " + i + ", col " + j + ": "
+//                        + sumOfCross(data2Djagged, i, j));
+//            }
+//        }
+        int result = smallestSum(data2Djagged);
+        System.out.println("Smallest sum: " + result);
+
+        // print2D(duplicateEmptyArray2D(data2Djagged));
+        print2D(arrayOfSums(data2Djagged));
+       // arrayOfSums(data2Djagged);
     }
 
     static int getIfExists(int[][] data, int row, int col) {
         // If exists, return the element, otherwise return 0
 
-        if (data.length >= row && data[row - 1].length >= col) {
+        if (row >= 0 && col >= 0 && data.length > row && data[row].length > col) {
 
-
-
-            return data[row - 1][col - 1];
+            return data[row][col];
 
         } else {
 
@@ -56,6 +65,25 @@ public class Day01ArrayCross {
 
         return center + top + bottom + left + right;
 
+    }
+
+    static int smallestSum(int[][] arr) {
+
+        int smallest = sumOfCross(arr, 0, 0);
+
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+
+                int sum = sumOfCross(arr, i, j);
+
+                if (sum < smallest) {
+
+                    smallest = sum;
+                }
+            }
+        }
+
+        return smallest;
     }
 
     // useful helper for debugging
@@ -143,12 +171,65 @@ public class Day01ArrayCross {
             }
         }
 
-    
     }
 
-     // duplicate a jagged array
+    // duplicate a jagged array
     static int[][] duplicateEmptyArray2D(int[][] orig2d) {
-        
-        return orig2d;
+
+        int rows = orig2d.length;
+        int[][] arr = new int[rows][];
+
+        for (int i = 0; i < orig2d.length; i++) {
+
+            arr[i] = new int[orig2d[i].length];
+            
+        }
+        return arr;
+    }
+
+    static int[][] arrayOfSums(int[][] arr) {
+
+        // test
+//        print2D(arr);
+//
+//        for (int i = 0; i < arr.length; i++) {
+//            for (int j = 0; j < arr[i].length; j++) {
+//
+//                System.out.println("Sum at row " + i + ", col " + j + ": "
+//                        + sumOfCross(arr, i, j));
+//            }
+//        }
+        // end test
+        int[][] sums = duplicateEmptyArray2D(arr);
+
+        // test
+//        print2D(sums);
+//
+//        for (int i = 0; i < sums.length; i++) {
+//            for (int j = 0; j < sums[i].length; j++) {
+//
+//                System.out.println("Sum at row " + i + ", col " + j + ": "
+//                        + sumOfCross(sums, i, j));
+//            }
+//        }
+        // end test
+        for (int i = 0; i < sums.length; i++) {
+
+            for (int j = 0; j < sums[i].length; j++) {
+
+                int sum = sumOfCross(arr, i, j);
+
+                // test
+//                System.out.println("Sum at row " + i + ", col " + j + ": "
+//                        + sumOfCross(arr, i, j));
+
+                sums[i][j] = sum;
+            }
+        }
+
+        //test
+       // print2D(sums);
+
+        return sums;
     }
 }
