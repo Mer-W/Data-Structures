@@ -144,7 +144,7 @@ public class CustomArray {
 
     public int get(int index) { // may throw ArrayIndexOutOfBoundsException
 
-        if (index < 0 || index >= size) {
+        if (index < 0 || index >= size - 1) {
             throw new IndexOutOfBoundsException("index out of bounds!");
 
         }
@@ -154,7 +154,7 @@ public class CustomArray {
 
     public int[] getSlice(int startIdx, int length) { // may throw ArrayIndexOutOfBoundsException
 
-        if (startIdx < 0 || startIdx + length > size) {
+        if (startIdx < 0 || length < 0 || startIdx + length > size) {
 
             throw new IndexOutOfBoundsException("you may not slice beyond the bounds of your array!");
         }
