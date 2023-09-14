@@ -10,6 +10,10 @@ package fsd.ds.day06hashmapgeneric;
  */
 public class HashMapGeneric<K, V> {
 
+    public HashMapGeneric() {
+        this.hashTable = new Container[5];
+    }
+
 
 
     private class Container {
@@ -18,9 +22,9 @@ public class HashMapGeneric<K, V> {
         K key;
         V value;
     }
-
     // size must be a prime number always
-    private Container[] hashTable;
+
+        private Container[] hashTable;
 
     private int totalItems;
 
@@ -35,13 +39,13 @@ public class HashMapGeneric<K, V> {
         }
         return hash;
     }
-    
+    /*
     public HashMapGeneric(Container[] template) {
         
                 Container[] hashtable = (Container[])java.lang.reflect.Array.newInstance(template.getClass().getComponentType(), 5);
                 this.hashTable = hashtable;
     }
-
+*/
     void putValue(K key, V value) {
 
         Container entry = new Container();
