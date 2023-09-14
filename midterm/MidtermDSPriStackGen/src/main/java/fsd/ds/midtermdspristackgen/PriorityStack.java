@@ -152,6 +152,73 @@ public class PriorityStack<T> implements Iterable<T> {
         // Note: order within the priority items group and non-priority items group must remain the same
         // Suggestion: instead of reordering the existing stack items
         // it may be easier to re-create a new stack with items in the order you need
+
+        Container newTop = new Container();
+        Container item = top;
+
+        for (int i = 0; i < size; i++) {
+
+            if (item.hasPriority) {
+
+                newTop.value = item.value;
+                newTop.hasPriority = item.hasPriority;
+                item = item.nextBelow;
+
+                break;
+            }
+            
+            item = item.nextBelow;
+        }
+
+        Container newItem = newTop;
+
+
+        for (int i = 0; i < size && item.nextBelow != null; i++) {
+            
+            if (item.hasPriority) {
+
+                for (int j = 0; j < size; j++) {
+
+                    if (newItem.nextBelow == null) {
+
+                        newItem.nextBelow = new Container();
+                        newItem.nextBelow.value = item.value;
+                        newItem.nextBelow.hasPriority = item.hasPriority;
+
+                        break;
+                    }
+                    newItem = newItem.nextBelow;
+                }
+            }
+            
+            item = item.nextBelow;
+        }
+
+        item = top;
+        newItem = newTop;
+
+        for (int i = 0; i < size; i++) {
+
+            if (!item.hasPriority) {
+
+                for (int j = 0; j < size; j++) {
+
+                    if (newItem.nextBelow == null) {
+
+                        newItem.nextBelow = new Container();
+                        newItem.nextBelow.value = item.value;
+                        newItem.nextBelow.hasPriority = item.hasPriority;
+
+                        break;
+                    }
+                    newItem = newItem.nextBelow;
+                }
+            }
+            
+            item = item.nextBelow;
+        }
+        
+        top = newTop;
     }
 
     @Override
