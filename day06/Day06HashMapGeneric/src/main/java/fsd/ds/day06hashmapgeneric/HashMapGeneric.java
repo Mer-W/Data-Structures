@@ -2,38 +2,47 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package fsd.ds.day06hashmap;
+package fsd.ds.day06hashmapgeneric;
 
 /**
  *
  * @author mer
  */
-public class HashMapStringString {
+public class HashMapGeneric<K, V> {
+
+
 
     private class Container {
 
         Container next;
-        String key;
-        String value;
+        K key;
+        V value;
     }
 
     // size must be a prime number always
-    private Container[] hashTable = new Container[5];
+    private Container[] hashTable;
 
     private int totalItems;
 
-    private int computeHashValue(String key) { // hashing function
+    private int computeHashValue(K key) { // hashing function
+        String str = key.toString();
         int hash = 0;
-        for (int i = 0; i < key.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             // hash *= 3;
             hash <<= 1;  // same as: hash *= ...
-            char c = key.charAt(i);
+            char c = str.charAt(i);
             hash += c;
         }
         return hash;
     }
+    
+    public HashMapGeneric(Container[] template) {
+        
+                Container[] hashtable = (Container[])java.lang.reflect.Array.newInstance(template.getClass().getComponentType(), 5);
+                this.hashTable = hashtable;
+    }
 
-    void putValue(String key, String value) {
+    void putValue(K key, V value) {
 
         Container entry = new Container();
         entry.key = key;
@@ -43,8 +52,8 @@ public class HashMapStringString {
         int bucket = hash % hashTable.length;
 
         //console test
-        System.out.println("hash of " + entry.key + " is: " + hash);
-        System.out.println(entry.key + "'s bucket is: " + bucket);
+        System.out.println("hash of " + entry.key.toString() + " is: " + hash);
+        System.out.println(entry.key.toString() + "'s bucket is: " + bucket);
 
         if (hashTable[bucket] == null) {
 
@@ -53,8 +62,8 @@ public class HashMapStringString {
             totalItems++;
 
             //console test
-            System.out.println(entry.key + "'s index is: 0");
-            System.out.println("new entry: " + hashTable[bucket].key + " => " + hashTable[bucket].value + "\n");
+            System.out.println(entry.key.toString() + "'s index is: 0");
+            System.out.println("new entry: " + hashTable[bucket].key.toString() + " => " + hashTable[bucket].value.toString() + "\n");
 
         } else {
 
@@ -67,8 +76,8 @@ public class HashMapStringString {
                     elem.value = value;
 
                     //console test
-                    System.out.println(entry.key + "'s index is: " + i);
-                    System.out.println("new entry: " + entry.key + " => " + entry.value + "\n");
+                    System.out.println(entry.key.toString() + "'s index is: " + i);
+                    System.out.println("new entry: " + entry.key.toString() + " => " + entry.value.toString() + "\n");
 
                     break;
                 }
@@ -79,8 +88,8 @@ public class HashMapStringString {
                     totalItems++;
 
                     //console test
-                    System.out.println(entry.key + "'s index is: " + (i + 1));
-                    System.out.println("new entry: " + entry.key + " => " + entry.value + "\n");
+                    System.out.println(entry.key.toString() + "'s index is: " + (i + 1));
+                    System.out.println("new entry: " + entry.key.toString() + " => " + entry.value.toString() + "\n");
 
                     break;
                 }
@@ -112,7 +121,7 @@ public class HashMapStringString {
         //console test
         System.out.println("resizing table");
 
-        Container[] newTable = new Container[size];
+        Container[] newTable = (Container[])java.lang.reflect.Array.newInstance(hashTable.getClass().getComponentType(), size);
         Container[] oldTable = hashTable;
         hashTable = newTable;
         int total = totalItems;
@@ -163,7 +172,7 @@ public class HashMapStringString {
         return primes[size];
     }
 
-    boolean hasKey(String key) {
+    boolean hasKey(K key) {
 
         for (int i = 0; i < hashTable.length; i++) {
 
@@ -186,7 +195,7 @@ public class HashMapStringString {
         return false;
     }
 
-    String getValue(String key) throws KeyNotFoundException {
+    V getValue(K key) throws KeyNotFoundException {
 
         for (int i = 0; i < hashTable.length; i++) {
 
@@ -211,7 +220,7 @@ public class HashMapStringString {
         throw new KeyNotFoundException("key not found");
     }
 
-    void deleteByKey(String key) throws KeyNotFoundException {
+    void deleteByKey(K key) throws KeyNotFoundException {
 
         boolean isFound = false;
 
@@ -247,15 +256,16 @@ public class HashMapStringString {
         
         if (!isFound) {
 
-            throw new KeyNotFoundException("key " + key + " not found");
+            throw new KeyNotFoundException("key " + key.toString() + " not found");
 
         }
         totalItems--;
     }
 
-    public String[] getAllKeys() {
+    public K[] getAllKeys(K[] template) {
+        
+        K[] keys = (K[])java.lang.reflect.Array.newInstance(template.getClass().getComponentType(), totalItems);
 
-        String[] keys = new String[totalItems];
 
         int count = 0;
 
@@ -281,19 +291,10 @@ public class HashMapStringString {
         }
         return keys;
     }
-    // Generic version: public K[] getAllKeys(K[] template) { ... }
-/*
-    public Pair<String, String>[] getAllKeyValPairs() {
-
-        Pair<String, String>[] result = new Pair[totalItems];
-
-        return result;
-    }
-     */
     
-        public Pair<String, String>[] getAllKeyValPairs() {
+        public Pair<K, V>[] getAllKeyValPairs(Pair<K, V>[] template) {
             
-        Pair<String, String>[] pairs = new Pair[totalItems];
+           Pair<K, V>[] pairs = (Pair<K, V>[])java.lang.reflect.Array.newInstance(template.getClass().getComponentType(), totalItems);
         
         int pairCount = 0;
         
@@ -301,7 +302,7 @@ public class HashMapStringString {
             
             for (Container elem = hashTable[i]; elem != null; elem = elem.next) {
                 
-                Pair<String,String> pair = new Pair(elem.key, elem.value);
+                Pair<K, V> pair = new Pair(elem.key, elem.value);
                 
                 pairs[pairCount++] = pair;
             }
@@ -338,9 +339,9 @@ public class HashMapStringString {
                         str.append(", ");
                     }
 
-                    str.append(elem.key);
+                    str.append(elem.key.toString());
                     str.append(" => ");
-                    str.append(elem.value);
+                    str.append(elem.value.toString());
 
                     if (elem.next == null) {
                         break;

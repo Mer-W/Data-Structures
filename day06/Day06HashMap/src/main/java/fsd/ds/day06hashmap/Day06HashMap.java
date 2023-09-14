@@ -15,6 +15,7 @@ public class Day06HashMap {
 
         HashMapStringString map = new HashMapStringString();
 
+        
         map.putValue("Buster", "yorkie-poo");
         map.putValue("Momo", "yorkie-poo");
         map.putValue("Mischa", "chi mutt");
@@ -29,33 +30,72 @@ public class Day06HashMap {
         map.putValue("Polly", "chihuahua");
         map.putValue("Rolo", "pitty");
         map.putValue("Ryan", "pitty");
+
+        // to string
+        System.out.println("\n" + map.toString());
+
+        // all keys
+        System.out.println("\n" + Arrays.toString(map.getAllKeys()));
+
+        // get size
+        System.out.println("size: " + map.getSize());
+
+        // put until resize
         map.putValue("Choco", "cat");
         map.putValue("Vinny", "border collie");
         map.putValue("Dede", "yorkie");
         map.putValue("Bruce", "cat");
-        map.putValue("Francis", "unknown");
+//        map.putValue("Francis", "unknown");
+
         // to string
         System.out.println(map.toString());
+
+        // all keys
+        System.out.println("\n" + Arrays.toString(map.getAllKeys()));
+
         // get size
-        System.out.println(map.getSize());
+        System.out.println("size: " + map.getSize());
 
         // has key
         System.out.println(map.hasKey("Buster"));
         System.out.println(map.hasKey("Busther"));
 
         // get value
-        System.out.println(map.getValue("Buster"));
-        System.out.println(map.getValue("Busther"));
+        try {
+            System.out.println(map.getValue("Buster"));
+
+        } catch (KeyNotFoundException e) {
+
+            System.out.println(e.getMessage());
+        }
+        try {
+
+            System.out.println(map.getValue("Busther"));
+        } catch (KeyNotFoundException e) {
+        }
 
         // delete from middle
-        map.deleteByKey("Coco");
+        try {
 
+            map.deleteByKey("Coco");
+
+        } catch (KeyNotFoundException e) {
+
+            System.out.println(e.getMessage());
+        }
         // delete chain head
-        map.deleteByKey("Francis");
+        try {
 
+            map.deleteByKey("Francis");
+
+        } catch (KeyNotFoundException e) {
+
+            System.out.println(e.getMessage());
+        }
         // to string
         System.out.println("\n" + map.toString());
-
+        // get size
+        System.out.println("size: " + map.getSize());
         // all keys
         System.out.println("\n" + Arrays.toString(map.getAllKeys()));
 
@@ -69,7 +109,7 @@ public class Day06HashMap {
         System.out.println("\n8: " + map.isPrime(8));
         System.out.println("\n9: " + map.isPrime(9));
         System.out.println("\n10: " + map.isPrime(10));
-        System.out.println("\n11: " + map.isPrime(11));
+        System.out.println("\n37: " + map.isPrime(37));
 
     }
 }

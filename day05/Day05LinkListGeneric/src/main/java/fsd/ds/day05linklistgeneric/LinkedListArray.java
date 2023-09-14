@@ -192,7 +192,7 @@ public class LinkedListArray<T> {
                 str.append(", ");
             }
 
-            str.append(elem.value);
+            str.append(elem.value.toString());
 
             elem = elem.next;
         }
