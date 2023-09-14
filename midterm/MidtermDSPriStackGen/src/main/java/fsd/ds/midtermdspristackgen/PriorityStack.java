@@ -26,6 +26,12 @@ public class PriorityStack<T> implements Iterable<T> {
 
     private int size;
 
+    private T[] template;
+
+    public PriorityStack(T[] template) {
+        this.template = template;
+    }
+
     public void push(T value) {
         push(value, false);
 
@@ -120,12 +126,12 @@ public class PriorityStack<T> implements Iterable<T> {
         // if item with value is not found throw NoSuchElementException
         Container item = top;
 
-        if (item.value.equals(value)) {
-
-            return pop();
-        }
-
         for (int i = 0; i < size - 1; i++) {
+
+            if (i == 0 && item.value.equals(value)) {
+
+                return pop();
+            }
 
             if (item.nextBelow.value.equals(value)) {
 
@@ -166,15 +172,14 @@ public class PriorityStack<T> implements Iterable<T> {
 
                 break;
             }
-            
+
             item = item.nextBelow;
         }
 
         Container newItem = newTop;
 
-
         for (int i = 0; i < size && item.nextBelow != null; i++) {
-            
+
             if (item.hasPriority) {
 
                 for (int j = 0; j < size; j++) {
@@ -190,7 +195,7 @@ public class PriorityStack<T> implements Iterable<T> {
                     newItem = newItem.nextBelow;
                 }
             }
-            
+
             item = item.nextBelow;
         }
 
@@ -214,10 +219,10 @@ public class PriorityStack<T> implements Iterable<T> {
                     newItem = newItem.nextBelow;
                 }
             }
-            
+
             item = item.nextBelow;
         }
-        
+
         top = newTop;
     }
 
@@ -258,29 +263,84 @@ public class PriorityStack<T> implements Iterable<T> {
 
 // you may need these fields to implement toArrayReversed
     private T[] reversed;
+
     private int reversedCount;
 
-    public T[] toArrayReversed(/* may need a parameter - template type */) { // Note: this is "the twist"
+    private Container getContainer(Container item, int n) {
+
+        reversedCount++;
+
+        if (reversedCount == n) {
+
+            return item;
+        }
+
+        return getContainer(item.nextBelow, n);
+
+    }
+
+    public T[] toArrayReversed() { // Note: this is "the twist"
         // return array with items on the stack
         // WARNING: element 0 of the array must be the BOTTOM of the stack
         // NOTE: To obtain full marks for this method you must use recursion.
         // Collect items on your way back, just before returning from each method call.
         // This case is similar to when constructors of parent classes are called (Programming II course).
-        return null;
+        T[] result = (T[]) java.lang.reflect.Array.newInstance(template.getClass().getComponentType(), size);
+
+        for (int i = 0; i < size; i++) {
+
+            reversedCount = 0;
+            Container item = getContainer(top, size - i);
+
+            result[i] = item.value;
+
+        }
+
+        return result;
 
     }
 
 // NOTE: *ONLY* implement this method if you can't implement toArrayReversed.
 // Make sure to add a unit test for it later.
+    /*
     public T[] toArray() {
-        return null;
 
+        //template = reversed;
+        T[] result = (T[]) java.lang.reflect.Array.newInstance(template.getClass().getComponentType(), size);
+        Container item = top;
+
+        for (int i = 0; i < size; i++) {
+
+            result[i] = item.value;
+
+            item = item.nextBelow;
+        }
+        return result;
     }
+*/
 
     // NOTE: you are only allowed to add private methods and private fields (if needed)
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+        return new Iterator<T>() {
+
+            T[] values = toArrayReversed();
+           // T[] values = toArray();
+
+            int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return (index < values.length);
+            }
+
+            @Override
+            public T next() {
+                return values[index++];
+            }
+
+        };
     }
 
 }
