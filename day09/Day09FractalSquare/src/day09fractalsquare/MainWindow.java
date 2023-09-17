@@ -2,7 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package day09firstfractal;
+package day09fractalsquare;
+
+
+import java.awt.BorderLayout;
+import java.awt.Canvas;
+import java.awt.Graphics;
+import javax.swing.JFrame;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
@@ -22,7 +28,7 @@ public class MainWindow extends JFrame {
 
     public MainWindow() {
         setLayout(new BorderLayout());
-        setSize(500, 375);
+        setSize(500, 500);
         setTitle("first drawing window");
         DrawingArea drawingArea = new DrawingArea();
         add("Center", drawingArea);
@@ -38,13 +44,21 @@ public class MainWindow extends JFrame {
 
             g.drawLine(10, 10, getWidth() - 10, 10);
 
-            drawFractal(g, 10, getWidth() - 10, 20, 20);
+            //drawFractal(g, 10, getWidth() - 10, 20, 20);
         }
 
     }
 
     // set base case: number of rows? window height / stepY
     // 
+    private void drawSquares(Graphics g, int fromX, int toX, int levelY, int stepY) {
+        
+        int seg = toX - fromX;
+        
+        if (seg <= 1) {
+            return;
+        }
+    }
     private void drawFractal(Graphics g, int fromX, int toX, int levelY, int stepY) {
         int segWidth = toX - fromX;
         
@@ -73,7 +87,8 @@ public class MainWindow extends JFrame {
 
         g.drawLine(fromX + (2 * segWidth), levelY, toX + (2 * segWidth), levelY);
         
-        drawFractal(g, fromX + (2 * segWidth), toX + (2 * segWidth), levelY, stepY); 
+        drawFractal(g, fromX + (2 * segWidth), toX + (2 * segWidth), levelY, stepY);     
 
     }
 }
+
