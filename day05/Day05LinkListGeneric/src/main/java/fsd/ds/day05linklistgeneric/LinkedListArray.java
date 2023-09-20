@@ -10,7 +10,7 @@ package fsd.ds.day05linklistgeneric;
  */
 public class LinkedListArray<T> {
 
-    private class Container {
+    private class Container<T> {
 
         Container next;
         T value;
@@ -20,7 +20,7 @@ public class LinkedListArray<T> {
 
     private int size = 0;
 
-    public void add(T value) {
+    public <T> void add(T value) {
 
         Container elem = new Container();
         elem.value = value;
@@ -49,7 +49,7 @@ public class LinkedListArray<T> {
 
             if (i == index) {
 
-                result = elem.value;
+                result = (T) elem.value;
             }
 
             elem = elem.next;
@@ -200,13 +200,15 @@ public class LinkedListArray<T> {
         return str.toString();
     }
 
-    public T[] toArray(T[] arr) {
+    public T[] toArray() {
 
+        T[] arr = (T[]) new Object[size];
+        
         Container elem = start;
 
         for (int i = 0; i < size; i++) {
 
-            arr[i] = elem.value;
+            arr[i] = (T) elem.value;
 
             elem = elem.next;
         }

@@ -43,7 +43,7 @@ public class Day05LinkListGeneric {
         System.out.println("toString after replace w/ 6 at 2: \n" + arr.toString());
 
         
-        System.out.println("toArray: " + Arrays.toString(arr.toArray(new Integer[arr.getSize()])));
+        System.out.println("toArray: " + Arrays.toString(arr.toArray()));
         
         arr.deleteByIndex(2);
         System.out.println("toString after delete at 2: \n" + arr.toString());
@@ -98,7 +98,7 @@ public class Day05LinkListGeneric {
         arrStr.replaceValueAtIndex("hello replacement!", 2);
         System.out.println(arrStr.toString());
         
-        System.out.println(Arrays.toString(arrStr.toArray(new String [arrStr.getSize()])));
+        System.out.println(Arrays.toString(arrStr.toArray()));
         
         arrStr.deleteByIndex(2);
         System.out.println(arrStr.toString());

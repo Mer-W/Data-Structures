@@ -9,14 +9,12 @@ package fsd.ds.day06hashmapgeneric;
  * @author mer
  */
 public class HashMapGeneric<K, V> {
-
+    
     public HashMapGeneric() {
-        this.hashTable = new Container[5];
+        
     }
 
-
-
-    private class Container {
+    private class Container<K, V> {
 
         Container next;
         K key;
@@ -24,9 +22,11 @@ public class HashMapGeneric<K, V> {
     }
     // size must be a prime number always
 
-        private Container[] hashTable;
+    
+    private Container<K, V>[] hashTable = new Container[5];
 
     private int totalItems;
+    
 
     private int computeHashValue(K key) { // hashing function
         String str = key.toString();
@@ -125,7 +125,8 @@ public class HashMapGeneric<K, V> {
         //console test
         System.out.println("resizing table");
 
-        Container[] newTable = (Container[])java.lang.reflect.Array.newInstance(hashTable.getClass().getComponentType(), size);
+        Container<K, V>[] newTable = new Container[size];
+                // (Container[])java.lang.reflect.Array.newInstance(hashTable.getClass().getComponentType(), size);
         Container[] oldTable = hashTable;
         hashTable = newTable;
         int total = totalItems;
@@ -139,7 +140,7 @@ public class HashMapGeneric<K, V> {
 
                 for (int j = 0; j < total; j++) {
 
-                    putValue(elem.key, elem.value);
+                    putValue((K) elem.key, (V) elem.value);
 
                     if (elem.next == null) {
 
@@ -210,7 +211,7 @@ public class HashMapGeneric<K, V> {
                 for (int j = 0; j < totalItems; j++) {
 
                     if (elem.key.equals(key)) {
-                        return elem.value;
+                        return (V) elem.value;
 
                     }
                     if (elem.next == null) {
@@ -281,7 +282,7 @@ public class HashMapGeneric<K, V> {
 
                 for (int j = 0; j < totalItems; j++) {
 
-                    keys[count] = elem.key;
+                    keys[count] = (K) elem.key;
                     count++;
 
                     if (elem.next == null) {

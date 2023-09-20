@@ -26,11 +26,11 @@ public class PriorityStack<T> implements Iterable<T> {
 
     private int size;
 
-    private T[] template;
-
-    public PriorityStack(T[] template) {
-        this.template = template;
-    }
+//    private T[] template;
+//
+//    public PriorityStack(T[] template) {
+//        this.template = template;
+//    }
 
     public void push(T value) {
         push(value, false);
@@ -262,7 +262,7 @@ public class PriorityStack<T> implements Iterable<T> {
     }
 
 // you may need these fields to implement toArrayReversed
-    private T[] reversed;
+    //private T[] reversed;
 
     private int reversedCount;
 
@@ -285,7 +285,9 @@ public class PriorityStack<T> implements Iterable<T> {
         // NOTE: To obtain full marks for this method you must use recursion.
         // Collect items on your way back, just before returning from each method call.
         // This case is similar to when constructors of parent classes are called (Programming II course).
-        T[] result = (T[]) java.lang.reflect.Array.newInstance(template.getClass().getComponentType(), size);
+        
+        T[] result = (T[]) new Object[size];
+       // T[] result = (T[]) java.lang.reflect.Array.newInstance(template.getClass().getComponentType(), size);
 
         for (int i = 0; i < size; i++) {
 
@@ -297,7 +299,6 @@ public class PriorityStack<T> implements Iterable<T> {
         }
 
         return result;
-
     }
 
 // NOTE: *ONLY* implement this method if you can't implement toArrayReversed.
@@ -326,7 +327,6 @@ public class PriorityStack<T> implements Iterable<T> {
         return new Iterator<T>() {
 
             T[] values = toArrayReversed();
-           // T[] values = toArray();
 
             int index = 0;
 

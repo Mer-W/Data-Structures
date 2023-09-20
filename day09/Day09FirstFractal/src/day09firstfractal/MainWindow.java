@@ -71,7 +71,7 @@ public class MainWindow extends JFrame {
         
         drawFractal(g, fromX, toX, levelY, stepY);
 
-        g.drawLine(fromX + (2 * segWidth), levelY, toX + (2 * segWidth), levelY);
+        g.drawLine(toX - segWidth, levelY, toX + (2 * segWidth), levelY);
         
         drawFractal(g, fromX + (2 * segWidth), toX + (2 * segWidth), levelY, stepY); 
 

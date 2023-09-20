@@ -55,7 +55,7 @@ public class PriorityStackTest {
     // *during* the midterm, not after.
     @Test
     public void PushTest1() {
-        PriorityStack<String> instance = new PriorityStack<>(new String[0]);
+        PriorityStack<String> instance = new PriorityStack<>();
         instance.push("Jerry");
         instance.push("Terry");
         instance.push("Larry", true);
@@ -66,7 +66,7 @@ public class PriorityStackTest {
 
     @Test
     public void PushPopTest1() {
-        PriorityStack<String> instance = new PriorityStack<>(new String[0]);
+        PriorityStack<String> instance = new PriorityStack<>();
         instance.push("Jerry");
         instance.push("Terry");
         instance.push("Larry", true);
@@ -81,7 +81,7 @@ public class PriorityStackTest {
 
     @Test
     public void PushPopPushTest1() {
-        PriorityStack<String> instance = new PriorityStack<>(new String[0]);
+        PriorityStack<String> instance = new PriorityStack<>();
         instance.push("Jerry");
         instance.push("Terry");
         instance.push("Larry", true);
@@ -102,7 +102,7 @@ public class PriorityStackTest {
 
     @Test
     public void PopPriorityTest1() {
-        PriorityStack<String> instance = new PriorityStack<>(new String[0]);
+        PriorityStack<String> instance = new PriorityStack<>();
         instance.push("Jerry");
         instance.push("Terry");
         instance.push("Larry", true);
@@ -119,7 +119,7 @@ public class PriorityStackTest {
 
     @Test
     public void PopPriorityTest2FromTop() {
-        PriorityStack<String> instance = new PriorityStack<>(new String[0]);
+        PriorityStack<String> instance = new PriorityStack<>();
         instance.push("Jerry");
         instance.push("Terry");
         instance.push("Barry");
@@ -131,7 +131,7 @@ public class PriorityStackTest {
 
     @Test
     public void HasValueTest1() {
-        PriorityStack<String> instance = new PriorityStack<>(new String[0]);
+        PriorityStack<String> instance = new PriorityStack<>();
         instance.push("Jerry");
         instance.push("Terry");
         instance.push("Larry", true);
@@ -146,7 +146,7 @@ public class PriorityStackTest {
 
     @Test
     public void HasValueRemoveValueTest1() {
-        PriorityStack<String> instance = new PriorityStack<>(new String[0]);
+        PriorityStack<String> instance = new PriorityStack<>();
         instance.push("Jerry");
         instance.push("Terry");
         instance.push("Larry", true);
@@ -171,7 +171,7 @@ public class PriorityStackTest {
 
     @Test
     public void ReorderByPriorityTest1() {
-        PriorityStack<String> instance = new PriorityStack<>(new String[0]);
+        PriorityStack<String> instance = new PriorityStack<>();
         instance.push("Jerry", false);
         instance.push("Terry");
         instance.push("Larry", true);
@@ -194,7 +194,7 @@ public class PriorityStackTest {
 
     @Test
     public void CustomEqualsTest1() {
-        PriorityStack<Person> instance = new PriorityStack<>(new Person[0]);
+        PriorityStack<Person> instance = new PriorityStack<>();
         instance.push(new Person("Jerry", 33));
         Person p1 = new Person("Maria", 22);
         instance.push(p1, true);
@@ -212,7 +212,7 @@ public class PriorityStackTest {
 // you must write your own unit test for that method or modify this one below
     @Test
     public void ReverseTest1() {
-        PriorityStack<String> instance = new PriorityStack<>(new String[]{});
+        PriorityStack<String> instance = new PriorityStack<>();
         instance.push("Jerry");
         instance.push("Terry");
         instance.push("Larry");
@@ -238,7 +238,7 @@ public class PriorityStackTest {
      */
     @Test
     public void RemoveValueEx() {
-        PriorityStack<String> instance = new PriorityStack<>(new String[0]);
+        PriorityStack<String> instance = new PriorityStack<>();
 
         NoSuchElementException ex = assertThrows(NoSuchElementException.class, () -> {
             instance.removeValue("Barry");
@@ -265,7 +265,7 @@ public class PriorityStackTest {
     @Test
     public void ThrowExPopPriority() {
 
-        PriorityStack<String> instance = new PriorityStack<>(new String[0]);
+        PriorityStack<String> instance = new PriorityStack<>();
 
         NoSuchElementException ex = assertThrows(NoSuchElementException.class, () -> {
             instance.popPriority();
@@ -294,7 +294,7 @@ public class PriorityStackTest {
 
     @Test
     public void ThowExPop() {
-        PriorityStack<String> instance = new PriorityStack<>(new String[0]);
+        PriorityStack<String> instance = new PriorityStack<>();
 
         NoSuchElementException ex = assertThrows(NoSuchElementException.class, () -> {
             instance.pop();
@@ -323,7 +323,7 @@ public class PriorityStackTest {
 
     @Test
     public void Iterator() {
-        PriorityStack<String> instance = new PriorityStack<>(new String[0]);
+        PriorityStack<String> instance = new PriorityStack<>();
         instance.push("Terry");
         instance.push("Barry");
         instance.push("Martha");
@@ -334,13 +334,31 @@ public class PriorityStackTest {
 
             str.append(value);
             str.append(" ");
-
         }
 
         String expRes = "Terry Barry Martha Ruth ";
         String res = str.toString();
         assertEquals(expRes, res);
+    }
+    
+        @Test
+    public void Iterator2() {
+        PriorityStack<Person> instance = new PriorityStack<>();
+        instance.push(new Person("Terry", 30));
+        instance.push(new Person("Barry", 35));
+        instance.push(new Person("Martha", 40));
+        instance.push(new Person("Ruth", 20));
+        StringBuilder str = new StringBuilder();
+        
+        for (Person value : instance) {
 
+            str.append(value.age);
+            str.append(" ");
+        }
+
+        String expRes = "30 35 40 20 ";
+        String res = str.toString();
+        assertEquals(expRes, res);
     }
 
 }

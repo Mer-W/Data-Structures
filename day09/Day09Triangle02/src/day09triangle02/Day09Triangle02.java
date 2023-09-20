@@ -33,13 +33,15 @@ public class Day09Triangle02 extends JFrame {
 
         @Override
         public void paint(Graphics g) {
-            
+
             int aX = 5;
             int aY = getHeight() - 5;
             int bX = getWidth() / 2;
             int bY = 5;
             int cX = getWidth() - 5;
             int cY = getHeight() - 5;
+            
+   
 
             drawTriangle(g, aX, aY, bX, bY, cX, cY, 0);
 
@@ -56,7 +58,6 @@ public class Day09Triangle02 extends JFrame {
         if (count == 0) {
 
             g.setColor(Color.magenta);
-
             g.drawLine(aX, aY, bX, bY);
             g.drawLine(bX, bY, cX, cY);
             g.drawLine(cX, cY, aX, aY);
@@ -70,12 +71,24 @@ public class Day09Triangle02 extends JFrame {
         int fX = (cX + aX) / 2;
         int fY = (cY + aY) / 2;
         
+        if (dX * 2 < aX + bX) {
+            dX++;
+        }
+        if (dY * 2 < aY + bY) {
+            dY++;
+        }
+        if (eY * 2 < bY + cY) {
+            eY++;
+        }
+        if (fY * 2 > cY + aY) {
+            fY--;
+        }
+
         Polygon def = new Polygon();
 
         def.addPoint(dX, dY);
         def.addPoint(eX, eY);
         def.addPoint(fX, fY);
-
 
         g.setColor(Color.white);
 

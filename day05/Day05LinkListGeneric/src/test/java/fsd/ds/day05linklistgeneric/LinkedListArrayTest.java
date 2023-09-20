@@ -235,8 +235,7 @@ public class LinkedListArrayTest<T> {
         instance.add("world");
         instance.add("hello world");
         String[] expResult = {"hello", "world", "hello world"};
-        String[] result = instance.toArray(new String[instance.getSize()]);
-        assertArrayEquals(expResult, result);
+        assertArrayEquals(expResult, instance.toArray());
     }
 
     @Test

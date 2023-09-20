@@ -16,7 +16,7 @@ public class Day06HashMapGeneric {
 
 
 
-        HashMapGeneric<String, String> map = new HashMapGeneric<>(new Container[] {});
+        HashMapGeneric<String, String> map = new HashMapGeneric<>();
 
         
         map.putValue("Buster", "yorkie-poo");
