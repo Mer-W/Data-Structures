@@ -299,8 +299,9 @@ public class HashMapGeneric<K, V> {
     
         public Pair<K, V>[] getAllKeyValPairs(Pair<K, V>[] template) {
             
-           Pair<K, V>[] pairs = (Pair<K, V>[])java.lang.reflect.Array.newInstance(template.getClass().getComponentType(), totalItems);
-        
+         //  Pair<K, V>[] pairs = (Pair<K, V>[])java.lang.reflect.Array.newInstance(template.getClass().getComponentType(), totalItems);
+                   Pair<K, V>[] pairs = new Pair[totalItems];
+
         int pairCount = 0;
         
         for (int i = 0; i < hashTable.length; i++) {
